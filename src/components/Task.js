@@ -2,24 +2,23 @@ import React from 'react';
 import EditTask from "./EditTask";
 import { useDispatch } from "react-redux";
 import { remove ,done } from "../Redux/Actions/TodoActions";
-import PropTypes from 'prop-types'
 
-const Task =({el,})=> {
+const Task =({el})=> {
     const dispatch = useDispatch();
     const deletee = () => {
     dispatch(remove(el.id));
   };
-  const complete = () => {
-    
-    dispatch(done(el.id));
-  };
+
   return (
     <div className="task-line" >
-          <input type="checkbox" className="check" onClick={complete} ></input>
+          <input type="checkbox"  className="check" onClick={(e) => {
+            dispatch(done(el.id));
+            }} ></input>
           <div className="task" >
              <p style={{
-      textDecoration: done ? 'none':'line-through'
-    }} >{el.text} </p>
+      textDecoration: !el.isComplete ? 'none':'line-through'
+    }} 
+    >{el.text} </p>
               <EditTask el={el} />
 
           </div>
@@ -34,9 +33,5 @@ const Task =({el,})=> {
 
     )
 }
-Task.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  isComplete: PropTypes.bool.isRequired,
-  text: PropTypes.string.isRequired
-}
+
 export default Task;

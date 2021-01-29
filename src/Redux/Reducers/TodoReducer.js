@@ -1,12 +1,8 @@
-import {ADD,EDIT,REMOVE,DONE} from "../Constants/ActionsTypes";
+import {ADD,EDIT,REMOVE,DONE, FILTER_TASK} from "../Constants/ActionsTypes";
 
 const initialState={
-    myTasks:[
-        {id:0,isComplete:false,text:"router checkpoint"},
-        {id:1, isComplete:true, text:"redux checkpoint "},
-        {id:2, isComplete:false, text:"coffee with friends "}
-],
-
+    myTasks:[],
+    filtered: []
 }
 
 const TodoReducer=(state=initialState, action) =>{
@@ -30,6 +26,26 @@ switch (action.type){
           
 
             }
+    case FILTER_TASK:
+        switch(action.payload){
+            case "All":
+                return {
+                    ...state,
+                    filtered:[]
+                }
+            case "Complete":
+                return {
+                    ...state,
+                    filtered: state.myTasks.filter((task)=> {return task.isComplete === true})
+                }
+            case "Uncomplete":
+                return {
+                    ...state,
+                    filtered: state.myTasks.filter((task)=> {return task.isComplete === false})
+                }
+            default:
+                return state;
+        }
     
     default :return state 
    

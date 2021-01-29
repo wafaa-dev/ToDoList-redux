@@ -1,5 +1,5 @@
 
-import {ADD,EDIT,REMOVE ,DONE} from "../Constants/ActionsTypes";
+import {ADD,EDIT,REMOVE ,DONE, FILTER_TASK} from "../Constants/ActionsTypes";
 
 export const add =(newTask)=>{
     return {
@@ -11,7 +11,6 @@ export const add =(newTask)=>{
 export const edit =(p)=>{
     return {
         type:EDIT,
-        //  p={index:  , editedText: },
         payload:p ,
     }
 }
@@ -24,8 +23,15 @@ export const remove =(id)=>{
 }
 export const done =(id)=>{
     return{
-        tyoe:DONE,
+        type:DONE,
         payload:id,
         
     }
+}
+
+export const filter = (status) => {
+return {
+    type: FILTER_TASK,
+    payload: status
+}
 }
